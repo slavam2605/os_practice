@@ -25,3 +25,19 @@ ssize_t write_(int fd, const void* buffer, size_t count)
         return res;
     return count - rest;
 }
+
+
+ssize_t read_until(int fd, void* buffer, size_t count, char delimiter) 
+{
+    ssize_t res;
+    size_t rest = count;
+    while ((res = read(fd, buffer, 1)) > 0) {
+        if (*((char*) buffer) == delimiter)
+            return count - rest;
+        buffer += res;
+        rest -= res;
+    }
+    if (res < 0)
+        return res;
+    return count - rest;
+}
