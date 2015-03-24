@@ -52,5 +52,9 @@ int spawn(const char* file, char* const argv[])
     int ret_code;
     if (waitpid(child_pid, &ret_code, 0) < 0)
         return -1; // emm, what should I do?
+    if (WIFEXITED(ret_code)) 
+        return WEXITSTATUS(ret_code);
+    else 
+        return -1; 
     return ret_code;
 }
