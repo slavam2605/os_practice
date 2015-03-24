@@ -56,5 +56,4 @@ int spawn(const char* file, char* const argv[])
         return WEXITSTATUS(ret_code);
     else 
         return -1; 
-    return ret_code;
 }
