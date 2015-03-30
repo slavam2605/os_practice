@@ -47,17 +47,12 @@ size_t buf_size(struct buf_t * buf)
 ssize_t buf_fill(fd_t fd, struct buf_t * buf, size_t required)
 {
     #ifdef DEBUG
-    if (!buf)
+    if (!buf || required > buf->capacity)
         abort();
     #endif
     ssize_t res;
     while (buf->size < required) {
         res = read(fd, buf->buffer + buf->size, buf->capacity - buf->size);
-        //#ifdef DEBUG
-        //if (buf->size + res > buf->capacity)
-        //    abort();
-        //#endif
-        printf("# LOL %d\n", res);
         if (res == 0)
             break;
         if (res > 0) 
