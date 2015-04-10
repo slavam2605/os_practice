@@ -22,9 +22,11 @@ int main()
     char a[MAX_BUF_SIZE];
     int res;
     while ((res = read_until(STDIN_FILENO, a, MAX_BUF_SIZE, ' ')) > 0) {
-        reverse(a, res);
-        a[res] = ' ';
-        if (write_(STDOUT_FILENO, a, res + 1) < 0) {
+        if (a[res - 1] == ' ')
+            reverse(a, res - 1);
+        else 
+            reverse(a, res);
+        if (write_(STDOUT_FILENO, a, res) < 0) {
             perror("error: ");
             return 0;
         }
