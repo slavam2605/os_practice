@@ -84,3 +84,35 @@ ssize_t buf_flush(fd_t fd, struct buf_t * buf, size_t required)
     if (res < 0)
         return -1;
 }
+
+#define NO_DELIM_FOUND -1
+#define READ_UNTIL_EOF -2
+#define READ_ERROR     -3
+
+ssize_t delim_lookup(char* buffer, int len, char delim) {
+    for (size_t i = 0; i < len; i++) {
+        if (buffer[i] == 0)
+            break; 
+        if (buffer[i] == delim)
+            return i;
+    }
+    return NO_DELIM_FOUND;
+}
+
+ssize_t buf_readuntil(fd_t fd, struct buf_t * buf, char delim) {
+    ssize_t pos;
+    int res;
+    while ((pos = delim_lookup(buf->buffer, buf->size, delim)) < 0) {
+        res = read(fd, buf->buffer + buf->size, buf->capacity - buf->size);
+        if (res == 0)
+            break;
+        if (res > 0) 
+            buf->size += res;
+        else 
+            return READ_ERROR; 
+
+    }
+    if (res == 0)
+        return READ_UNTIL_EOF;
+    return pos;
+}
