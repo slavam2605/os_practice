@@ -3,4 +3,4 @@ all:
 	gcc revwords.c -L../lib/ -Wl,-rpath=../lib -lhelpers -o revwords
 
 clean:
-	rm revwords
+	rm -f revwords

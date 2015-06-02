@@ -3,4 +3,4 @@ all:
 	gcc bufcat.c -L../lib/ -Wl,-rpath=../lib -lbufio -o bufcat
 
 clean:
-	rm bufcat
+	rm -f bufcat

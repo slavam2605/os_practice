@@ -5,4 +5,4 @@ simplesh: simplesh.c
 	gcc -D_POSIX_C_SOURCE -D_GNU_SOURCE -g simplesh.c -std=c99 -L../lib/ -Wl,-rpath=../lib -lhelpers -lbufio -o simplesh
 
 clean:
-	rm simplesh
+	rm -f simplesh

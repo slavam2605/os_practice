@@ -74,6 +74,7 @@ int main() {
             return 0;
         if (pos == READ_ERROR) {
             errcall(write_(STDOUT_FILENO, "\n$ ", 1));
+            buf->size = 0;
             continue;
         }
         char* buffer = buf->buffer;        

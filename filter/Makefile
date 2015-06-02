@@ -3,4 +3,4 @@ all:
 	gcc filter.c -L../lib/ -Wl,-rpath=../lib -lhelpers -o filter
 
 clean:
-	rm filter
+	rm -f filter
