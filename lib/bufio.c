@@ -51,7 +51,7 @@ ssize_t buf_fill(fd_t fd, struct buf_t * buf, size_t required)
         abort();
     #endif
     ssize_t res;
-    while (buf->size < required) {
+    do {
         res = read(fd, buf->buffer + buf->size, buf->capacity - buf->size);
         if (res == 0)
             break;
@@ -59,7 +59,7 @@ ssize_t buf_fill(fd_t fd, struct buf_t * buf, size_t required)
             buf->size += res;
         else 
             return -1; 
-    }
+    } while (buf->size < required);
     return buf->size;
 }
 
